@@ -27,8 +27,14 @@ const { createApp } = Vue
             }
             ],
             currentActive: 0,
+            stopInterval: null,
       }
     },
+
+    created(){
+      this.autoScroll()
+    },
+
     methods: {
       next(){
         this.currentActive++
@@ -43,6 +49,16 @@ const { createApp } = Vue
           this.currentActive = this.slides.length - 1
         }
       },
-        
+
+      autoScroll(){
+        this.stopInterval = setInterval( ()=>{
+          this.next()
+        }, 3000)
+      },
+
+      stopScroll(){
+        clearInterval(this.stopInterval)
+        this.stopInterval = null
+      },
     }
   }).mount('#app')
